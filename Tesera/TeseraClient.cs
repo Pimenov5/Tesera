@@ -8,6 +8,9 @@ namespace Tesera
 		readonly HttpClient _httpClient;
 		readonly JsonSerializerOptions _jsonSerializerOptions = new() { IncludeFields = true, PropertyNameCaseInsensitive = true };
 
+		private static TeseraClient? s_instance;
+		public static TeseraClient Instance { get => s_instance ?? throw new NullReferenceException("Не был задан экземпляр клиента Tesera.ru"); set { s_instance = value; } }
+
 		public TeseraClient(HttpClient? httpClient) => _httpClient = httpClient ?? new();
 		public TeseraClient() : this(null) { }
 
